@@ -7,7 +7,13 @@ import App from './App.tsx';
 
 import GlobalStyle from './globalStyles.tsx';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 0,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Router>
