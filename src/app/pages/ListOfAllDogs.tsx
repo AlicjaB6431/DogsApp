@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import BcgImage from '../images/main-background.png';
+import DottsLoader from '../../components/DottsLoader';
 
 import styled from 'styled-components';
 
@@ -17,14 +18,10 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
       <BackgroundImageContainer />
       <Header />
       <ContentContainer>
-        {isLoading && (
-          <LoadingContainer>
-            <p>loading...</p>
-          </LoadingContainer>
-        )}
+        {isLoading && <DottsLoader />}
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
 
-        {!isLoading && !isError && (
+        {data && (
           <DisplayList>
             {data &&
               data.map((breed: string) => {
@@ -42,13 +39,6 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
     </MainContainer>
   );
 }
-
-const LoadingContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 
 const ErrorText = styled.p`
   position: absolute;

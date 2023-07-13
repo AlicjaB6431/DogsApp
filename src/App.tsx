@@ -4,12 +4,11 @@ import Navigation from './components/Navigation';
 import ListOfAllDogs from './app/pages/ListOfAllDogs';
 import SearchDog from './app/pages/SearchDog';
 import { useListDogs } from './app/hooks/useDogsList';
+import InfoAboutDog from './app/pages/InfoAboutDog';
 import { themes } from './assets/themes';
 
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
-
-
 
 export default function App() {
   const { data, isLoading, isError } = useListDogs();
@@ -22,7 +21,11 @@ export default function App() {
             path='/'
             element={<ListOfAllDogs data={data} isLoading={isLoading} isError={isError} />}
           ></Route>
-          <Route path='/search' element={<SearchDog />}></Route>
+          <Route
+            path='/search'
+            element={<SearchDog data={data} isLoading={isLoading} isError={isError} />}
+          ></Route>
+          <Route path='/:selectedBreed/:selectedSubBreed?' element={<InfoAboutDog filteredData={[]} />}></Route>
         </Routes>
         <Navigation />
       </MainWrapper>
@@ -34,5 +37,3 @@ const MainWrapper = styled.div`
   height: 100vh;
   width: 100%;
 `;
-
-

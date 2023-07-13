@@ -2,6 +2,7 @@ export const color = {
     white: 'rgb(255, 255, 255)',
     blue: '#2e8d9e',
     navyBlue: '#060b26',
+    darkBlue: '#14426b'
   };
   
   export const textSize = {
