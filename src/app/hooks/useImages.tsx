@@ -11,7 +11,7 @@ export const useImages = (breed: string, subbreed?: string) => {
       }
       url += '/images';
       const { data } = await axios.get(url);
-      return data.message as string[];
+      return data.message;
     },
   });
 };
