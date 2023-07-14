@@ -1,19 +1,28 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import InfoAboutDog from './InfoAboutDog';
-import DottsLoader from '../../components/DottsLoader';
-import backgroungImg from '../images/single-dog-background.png';
+import DottsLoader from '../../../components/DottsLoader';
 
 import { TextField } from '@mui/material';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
 interface SearchDogProps {
   data?: [string];
   isLoading: boolean;
   isError: boolean;
 }
+
 export default function SearchDog({ data, isLoading, isError }: SearchDogProps) {
   const [searchedBreed, setSearchedBreed] = useState('');
+
+  const location = useLocation();
+  const breed = location.state?.breed;
+
+  useEffect(() => {
+    breed && setSearchedBreed(breed);
+  }, [breed]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedBreed(event.target.value);
@@ -24,9 +33,15 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
     searchedBreed &&
     data.filter((breed: string) => breed.toLowerCase().includes(searchedBreed.toLowerCase()));
 
+  const handleSetBreed = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const chosenBreed = event.currentTarget.innerText;
+    const splittedBreed = chosenBreed.split(' ');
+    const readyToSearch = splittedBreed.join('/');
+    setSearchedBreed(readyToSearch);
+  };
+
   return (
     <MainWrapper>
-      <BackgroundImageContainer />
       <SearchWrapper>
         {isLoading && <DottsLoader />}
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
@@ -56,17 +71,21 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
             <InfoAboutDog filteredData={filteredData} />
           ) : filteredData && filteredData.length > 1 ? (
             <>
-              <p>Wpisz nazwę jednej rasy z podpowiadanych:</p>
-              <ul>
+              <p>Wpisz albo wybierz jedną z podpowiadanych ras:</p>
+              <DisplayList>
                 {filteredData.map((breed) => (
-                  <li key={breed}>{breed.split('/').join(' ').toUpperCase()}</li>
+                  <SingleListItem key={breed} onClick={handleSetBreed}>
+                    {breed.split('/').join(' ').toUpperCase()}
+                  </SingleListItem>
                 ))}
-              </ul>
+              </DisplayList>
             </>
           ) : (
             <p>Nie mamy jeszcze takiej rasy</p>
           )
-        ) : null}
+        ) : (
+          <p>Wpisz jakiej rasy szukasz</p>
+        )}
       </DisplayInfo>
     </MainWrapper>
   );
@@ -78,27 +97,32 @@ const MainWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  overflow: scroll;
 `;
-const BackgroundImageContainer = styled.img`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url(${backgroungImg});
-  background-size: cover;
-  z-index: -1;
-  opacity: 0.2;
-`;
+
 const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-top: 50px;
   width: 90%;
 `;
 const DisplayInfo = styled.div`
-  position: absolute;
   top: 200px;
 `;
+
+const DisplayList = styled.ul`
+  font-size: ${(props) => props.theme.textSize.medium};
+  list-style: none;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;
+const SingleListItem = styled.li`
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+`;
+
 const ErrorText = styled.p`
   position: absolute;
   top: 50%;

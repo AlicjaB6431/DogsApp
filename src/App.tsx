@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Navigation from './components/Navigation';
-import ListOfAllDogs from './app/pages/ListOfAllDogs';
-import SearchDog from './app/pages/SearchDog';
+import ListOfAllDogs from './app/pages/homePage/ListOfAllDogs';
+import SearchDog from './app/pages/searchPage/SearchDog';
 import { useListDogs } from './app/hooks/useDogsList';
-import InfoAboutDog from './app/pages/InfoAboutDog';
 import { themes } from './assets/themes';
+import BcgImage from './app/images/main-background.png';
 
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
@@ -16,6 +16,7 @@ export default function App() {
   return (
     <ThemeProvider theme={themes}>
       <MainWrapper>
+        <BackgroundImageContainer />
         <Routes>
           <Route
             path='/'
@@ -25,7 +26,6 @@ export default function App() {
             path='/search'
             element={<SearchDog data={data} isLoading={isLoading} isError={isError} />}
           ></Route>
-          <Route path='/:selectedBreed/:selectedSubBreed?' element={<InfoAboutDog filteredData={[]} />}></Route>
         </Routes>
         <Navigation />
       </MainWrapper>
@@ -36,4 +36,13 @@ export default function App() {
 const MainWrapper = styled.div`
   height: 100vh;
   width: 100%;
+`;
+
+const BackgroundImageContainer = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(${BcgImage});
+  background-size: cover;
+  z-index: -1;
 `;

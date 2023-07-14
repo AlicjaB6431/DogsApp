@@ -1,20 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 
+interface SingleLinkProps {
+  isActive: boolean;
+}
+
 export default function Navigation() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const isSearch = location.pathname === '/search';
+
   return (
     <MainWrapper>
       <NavigationContainer>
         <SingleItem>
-          <SingleLink to='/'>
+          <SingleLink to='/' isActive={isHomePage}>
             <HomeIcon fontSize='large' />
           </SingleLink>
         </SingleItem>
         <SingleItem>
-          <SingleLink to='/search'>
+          <SingleLink to='/search' isActive={isSearch}>
             <SearchIcon fontSize='large' />
           </SingleLink>
         </SingleItem>
@@ -52,9 +60,10 @@ const SingleItem = styled.li`
   padding: 10px;
 `;
 
-const SingleLink = styled(Link)`
-  color: ${(props) => props.theme.color.white};
+const SingleLink = styled(Link)<SingleLinkProps>`
+  color: ${(props) => (props.isActive ? props.theme.color.blue : props.theme.color.white)};
   &:hover {
-    color: ${(props) => props.theme.color.blue};
+    color: ${(props) =>
+      props.isActive ? props.theme.color.blueHover : props.theme.color.whiteHover};
   }
 `;
