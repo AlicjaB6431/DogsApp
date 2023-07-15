@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SingleLinkProps {
-  isActive: boolean;
+  active: boolean;
 }
 
 export default function Navigation() {
@@ -17,12 +17,12 @@ export default function Navigation() {
     <MainWrapper>
       <NavigationContainer>
         <SingleItem>
-          <SingleLink to='/' isActive={isHomePage}>
+          <SingleLink to='/' active={isHomePage}>
             <HomeIcon fontSize='large' />
           </SingleLink>
         </SingleItem>
         <SingleItem>
-          <SingleLink to='/search' isActive={isSearch}>
+          <SingleLink to='/search' active={isSearch}>
             <SearchIcon fontSize='large' />
           </SingleLink>
         </SingleItem>
@@ -61,9 +61,9 @@ const SingleItem = styled.li`
 `;
 
 const SingleLink = styled(Link)<SingleLinkProps>`
-  color: ${(props) => (props.isActive ? props.theme.color.blue : props.theme.color.white)};
+  color: ${(props) => (props.active ? props.theme.color.blue : props.theme.color.white)};
   &:hover {
     color: ${(props) =>
-      props.isActive ? props.theme.color.blueHover : props.theme.color.whiteHover};
+      props.active ? props.theme.color.blueHover : props.theme.color.whiteHover};
   }
 `;

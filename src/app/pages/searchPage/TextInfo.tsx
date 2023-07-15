@@ -22,4 +22,5 @@ export default function TextInfo() {
 const InfoText = styled.p`
   font-size: ${(props) => props.theme.textSize.xSmall};
   line-height: 1.5;
+  width: 90%;
 `;

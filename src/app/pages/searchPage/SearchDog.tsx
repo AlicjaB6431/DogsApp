@@ -61,18 +61,22 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
           </DisplayList>
         </>
       ) : (
-        <GeneralInfo
-          text={'Nie znamy takej rasy, spróbuj wyszukać inną'}
-          altInfo={'Corgi na niebieskim tle'}
-          image={breedNotFound}
-        />
+        data && (
+          <GeneralInfo
+            text={'Nie znamy takej rasy, spróbuj wyszukać inną'}
+            altInfo={'Corgi na niebieskim tle'}
+            image={breedNotFound}
+          />
+        )
       )
     ) : (
-      <GeneralInfo
-        text={'Wyszukaj rasę psa jaka Cię interesuje'}
-        image={searchDogImg}
-        altInfo={'Rysunek rudego psa'}
-      />
+      data && (
+        <GeneralInfo
+          text={'Wyszukaj rasę psa jaka Cię interesuje'}
+          image={searchDogImg}
+          altInfo={'Rysunek rudego psa'}
+        />
+      )
     );
 
   return (
@@ -125,6 +129,7 @@ const SearchWrapper = styled.div`
 const DisplayInfo = styled.div`
   top: 200px;
   height: 100%;
+  width: 100%;
 `;
 
 const InfoText = styled.p`

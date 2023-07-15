@@ -4,11 +4,23 @@ import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
 import errImg from '../../images/corgi.png';
 import TextInfo from './TextInfo';
+import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+
 interface InfoAboutDogProps {
   filteredData: string[];
 }
 
 export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
+  const [width, setWidth] = useState(0);
+  const carousel = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (carousel.current) {
+      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+    }
+  }, []);
+
   const breedToString = filteredData.join(', ');
   const breedNames = breedToString.split('/');
   const splittedBreed = breedNames.join(' ').toUpperCase();
@@ -23,37 +35,61 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
       {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
 
       <InfoContainer>
-        <ImageCard>
-          {isLoading ? (
-            <Skeleton variant='rectangular' width={300} height={200} />
-          ) : (
-            <SingleImg
-              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                const target = e.target as HTMLImageElement;
-                target.src = errImg;
-              }}
-              alt={splittedBreed}
-              src={data[0]}
-            />
-          )}
-        </ImageCard>
+        <CarouselWrapper>
+          <Carousel ref={carousel} whileTap={{ cursor: 'grabbing' }}>
+            <InnerCarousel drag='x' dragConstraints={{ right: 0, left: -width }}>
+              {data &&
+                data.map((image: string) => {
+                  return (
+                    <ImageCard key={image}>
+                      {isLoading ? (
+                        <Skeleton variant='rectangular' width={200} height={200} />
+                      ) : (
+                        <SingleImg
+                          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = errImg;
+                          }}
+                          alt={splittedBreed}
+                          src={image}
+                        />
+                      )}
+                    </ImageCard>
+                  );
+                })}
+            </InnerCarousel>
+          </Carousel>
+        </CarouselWrapper>
         <BreedHeader>{splittedBreed}</BreedHeader>
-        <TextContainer>
-          <TextInfo />
-        </TextContainer>
+
+        <TextInfo />
       </InfoContainer>
     </MainWrapper>
   );
 }
+const CarouselWrapper = styled.div`
+  position: relative;
+  height: 200px;
+`;
+const Carousel = styled(motion.div)`
+  cursor: grab;
+  overflow: hidden;
+  width: 100%;
+`;
+const InnerCarousel = styled(motion.div)`
+  display: flex;
+`;
 
 const MainWrapper = styled.div`
   margin-top: 20px;
   height: 100%;
+  width: 100%;
 `;
 
 const BreedHeader = styled.h1`
   font-size: ${(props) => props.theme.textSize.medium};
   text-align: center;
+  margin-top: 60px;
 `;
 
 const InfoContainer = styled.div`
@@ -61,13 +97,16 @@ const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const ImageCard = styled.div`
+const ImageCard = styled(motion.div)`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 200px;
+  padding: 10px;
+  margin: 10px;
+  min-width: 200px;
   height: 200px;
   overflow: hidden;
   border-radius: 15px;
@@ -76,14 +115,12 @@ const ImageCard = styled.div`
   box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 `;
 
-const TextContainer = styled.div`
-  width: 90%;
-`;
 const SingleImg = styled.img`
   max-width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  pointer-events: none;
 `;
 
 const ErrorText = styled.p`

@@ -21,11 +21,11 @@ export default function App() {
           <Route
             path='/'
             element={<ListOfAllDogs data={data} isLoading={isLoading} isError={isError} />}
-          ></Route>
+          />
           <Route
             path='/search'
             element={<SearchDog data={data} isLoading={isLoading} isError={isError} />}
-          ></Route>
+          />
         </Routes>
         <Navigation />
       </MainWrapper>
