@@ -14,9 +14,22 @@ interface DataProps {
 export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
   const navigate = useNavigate();
 
-  function navigateToSearch(breed:string) {
+  const navigateToSearch = (breed: string) => {
     navigate('/search', { state: { breed } });
-  }
+  };
+
+  const generateDogsList =
+    data &&
+    data.map((breed: string) => {
+      const breedNames = breed.split('/');
+      const splittedBreed = breedNames.join(' ').toUpperCase();
+      return (
+        <SingleListItem key={breed} onClick={() => navigateToSearch(breed)}>
+          {splittedBreed}
+        </SingleListItem>
+      );
+    });
+
   return (
     <MainContainer>
       <Header />
@@ -24,20 +37,7 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
         {isLoading && <DottsLoader />}
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
 
-        {data && data.length > 0 && (
-          <DisplayList>
-            {data.map((breed: string) => {
-              const breedNames = breed.split('/');
-              const splittedBreed = breedNames.join(' ').toUpperCase();
-
-              return (
-                <SingleListItem key={breed} onClick={() => navigateToSearch(breed)}>
-                  {splittedBreed}
-                </SingleListItem>
-              );
-            })}
-          </DisplayList>
-        )}
+        {data && data.length > 0 && <DisplayList>{generateDogsList}</DisplayList>}
       </ContentContainer>
     </MainContainer>
   );
@@ -70,8 +70,8 @@ const ContentContainer = styled.div`
 `;
 
 const DisplayList = styled.ul`
-  font-size: ${(props) => props.theme.textSize.medium};
-  list-style: none;
+  font-size: ${(props) => props.theme.textSize.small};
+  /* list-style: none; */
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@ const SingleListItem = styled.li`
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  text-decoration: none;
+  /* text-decoration: none; */
   color: ${(props) => props.theme.color.navyBlue};
   &:hover {
     color: ${(props) => props.theme.color.blue};

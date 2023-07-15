@@ -3,10 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 import InfoAboutDog from './InfoAboutDog';
 import DottsLoader from '../../../components/DottsLoader';
+import GeneralInfo from './GeneralInfo';
 
 import { TextField } from '@mui/material';
 import styled from 'styled-components';
 import { useEffect } from 'react';
+import breedNotFound from '../../images/breedNotFound.png';
+import searchDogImg from '../../images/searchDogImg.png';
 
 interface SearchDogProps {
   data?: [string];
@@ -25,13 +28,10 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
   }, [breed]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchedBreed(event.target.value);
+    const regex = /\s+/g;
+    const searchedValue = event.target.value.replace(regex, '/');
+    setSearchedBreed(searchedValue);
   };
-
-  const filteredData =
-    data &&
-    searchedBreed &&
-    data.filter((breed: string) => breed.toLowerCase().includes(searchedBreed.toLowerCase()));
 
   const handleSetBreed = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const chosenBreed = event.currentTarget.innerText;
@@ -39,6 +39,41 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
     const readyToSearch = splittedBreed.join('/');
     setSearchedBreed(readyToSearch);
   };
+
+  const filteredData =
+    data &&
+    searchedBreed &&
+    data.filter((breed: string) => breed.toLowerCase().includes(searchedBreed.toLowerCase()));
+
+  const generateDogInfo =
+    searchedBreed !== '' ? (
+      filteredData && filteredData.length === 1 ? (
+        <InfoAboutDog filteredData={filteredData} />
+      ) : filteredData && filteredData.length > 1 ? (
+        <>
+          <InfoText>Wpisz albo wybierz jedną z podpowiadanych ras:</InfoText>
+          <DisplayList>
+            {filteredData.map((breed) => (
+              <SingleListItem key={breed} onClick={handleSetBreed}>
+                {breed.split('/').join(' ').toUpperCase()}
+              </SingleListItem>
+            ))}
+          </DisplayList>
+        </>
+      ) : (
+        <GeneralInfo
+          text={'Nie znamy takej rasy, spróbuj wyszukać inną'}
+          altInfo={'Corgi na niebieskim tle'}
+          image={breedNotFound}
+        />
+      )
+    ) : (
+      <GeneralInfo
+        text={'Wyszukaj rasę psa jaka Cię interesuje'}
+        image={searchDogImg}
+        altInfo={'Rysunek rudego psa'}
+      />
+    );
 
   return (
     <MainWrapper>
@@ -65,28 +100,7 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
           }}
         />
       </SearchWrapper>
-      <DisplayInfo>
-        {searchedBreed !== '' ? (
-          filteredData && filteredData.length === 1 ? (
-            <InfoAboutDog filteredData={filteredData} />
-          ) : filteredData && filteredData.length > 1 ? (
-            <>
-              <p>Wpisz albo wybierz jedną z podpowiadanych ras:</p>
-              <DisplayList>
-                {filteredData.map((breed) => (
-                  <SingleListItem key={breed} onClick={handleSetBreed}>
-                    {breed.split('/').join(' ').toUpperCase()}
-                  </SingleListItem>
-                ))}
-              </DisplayList>
-            </>
-          ) : (
-            <p>Nie mamy jeszcze takiej rasy</p>
-          )
-        ) : (
-          <p>Wpisz jakiej rasy szukasz</p>
-        )}
-      </DisplayInfo>
+      <DisplayInfo>{generateDogInfo}</DisplayInfo>
     </MainWrapper>
   );
 }
@@ -97,6 +111,8 @@ const MainWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   overflow: scroll;
 `;
 
@@ -108,12 +124,16 @@ const SearchWrapper = styled.div`
 `;
 const DisplayInfo = styled.div`
   top: 200px;
+  height: 100%;
+`;
+
+const InfoText = styled.p`
+  font-size: ${(props) => props.theme.textSize.small};
+  text-align: center;
 `;
 
 const DisplayList = styled.ul`
-  font-size: ${(props) => props.theme.textSize.medium};
-  list-style: none;
-  flex-grow: 1;
+  font-size: ${(props) => props.theme.textSize.small};
   display: flex;
   flex-direction: column;
 `;
