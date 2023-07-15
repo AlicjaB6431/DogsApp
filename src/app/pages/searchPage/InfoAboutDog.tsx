@@ -1,11 +1,12 @@
+import { useRef, useEffect, useState } from 'react';
+
 import { useImages } from '../../hooks/useImages';
+import TextInfo from './TextInfo';
+import errImg from '../../images/corgi.png';
 
 import styled from 'styled-components';
 import { Skeleton } from '@mui/material';
-import errImg from '../../images/corgi.png';
-import TextInfo from './TextInfo';
 import { motion } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
 
 interface InfoAboutDogProps {
   filteredData: string[];
@@ -64,10 +65,10 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
   );
 }
 const CarouselWrapper = styled.div`
-  position: relative;
-  height: 250px;
   max-width: 1124px;
+  height: 250px;
   margin-top: 20px;
+  position: relative;
   display: flex;
   justify-content: center;
 `;
@@ -95,6 +96,7 @@ const BreedHeader = styled.h1`
 
 const InfoContainer = styled.div`
   width: 100%;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;

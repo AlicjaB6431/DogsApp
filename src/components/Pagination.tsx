@@ -14,7 +14,7 @@ const PaginationComponent: React.FC<PagintionProps> = ({
   setCurrentBreed,
   containerRef,
 }) => {
-  const pageCount = Math.ceil(totalBreeds /  breedsPerPage);
+  const pageCount = Math.ceil(totalBreeds / breedsPerPage);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentBreed(page);

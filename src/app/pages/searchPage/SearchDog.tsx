@@ -35,8 +35,7 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
 
   const handleSetBreed = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const chosenBreed = event.currentTarget.innerText;
-    const splittedBreed = chosenBreed.split(' ');
-    const readyToSearch = splittedBreed.join('/');
+    const readyToSearch = chosenBreed.split(' ').join('/');
     setSearchedBreed(readyToSearch);
   };
 
@@ -82,7 +81,7 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
         <TextField
           id='outlined-basic'
-          label='Wpisz rasę psa'
+          label='Wpisz rasę psa...'
           variant='outlined'
           onChange={handleSearch}
           sx={{
@@ -115,6 +114,17 @@ const MainWrapper = styled.div`
   justify-content: space-between;
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
 `;
 
 const SearchWrapper = styled.div`
@@ -133,6 +143,7 @@ const DisplayInfo = styled.div`
 `;
 
 const InfoText = styled.p`
+  max-width: 90%;
   font-size: ${(props) => props.theme.textSize.small};
   text-align: center;
 `;
@@ -141,6 +152,9 @@ const DisplayList = styled.ul`
   font-size: ${(props) => props.theme.textSize.small};
   display: flex;
   flex-direction: column;
+  @media (min-width: 800px) {
+    font-size: ${(props) => props.theme.textSize.medium};
+  }
 `;
 const SingleListItem = styled.li`
   padding: 10px;
