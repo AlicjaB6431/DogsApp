@@ -48,7 +48,6 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
       <ContentContainer>
         {isLoading && <DottsLoader />}
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
-
         {data && data.length > 0 && <DisplayList>{generateDogsList}</DisplayList>}
         <PaginationContainer>
           <PaginationComponent

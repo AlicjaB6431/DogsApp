@@ -15,25 +15,22 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
   const [width, setWidth] = useState(0);
   const carousel = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    }
-  }, []);
-
-  const breedToString = filteredData.join(', ');
-  const breedNames = breedToString.split('/');
+  const breedNames = filteredData.join(', ').split('/');
   const splittedBreed = breedNames.join(' ').toUpperCase();
-
   const selectedBreed = breedNames[0];
   const selectedSubBreed = breedNames[1];
 
   const { data, isError, isLoading } = useImages(selectedBreed, selectedSubBreed);
 
+  useEffect(() => {
+    if (carousel.current) {
+      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+    }
+  }, [carousel?.current?.scrollWidth]);
+
   return (
     <MainWrapper>
       {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
-
       <InfoContainer>
         <CarouselWrapper>
           <Carousel ref={carousel} whileTap={{ cursor: 'grabbing' }}>
@@ -61,7 +58,6 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
           </Carousel>
         </CarouselWrapper>
         <BreedHeader>{splittedBreed}</BreedHeader>
-
         <TextInfo />
       </InfoContainer>
     </MainWrapper>
@@ -69,27 +65,32 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
 }
 const CarouselWrapper = styled.div`
   position: relative;
-  height: 200px;
+  height: 250px;
+  max-width: 1124px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 `;
 const Carousel = styled(motion.div)`
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
   cursor: grab;
-  overflow: hidden;
-  width: 100%;
+  overflow-x: hidden;
 `;
 const InnerCarousel = styled(motion.div)`
   display: flex;
 `;
 
 const MainWrapper = styled.div`
-  margin-top: 20px;
   height: 100%;
   width: 100%;
+  margin-top: 20px;
 `;
 
 const BreedHeader = styled.h1`
   font-size: ${(props) => props.theme.textSize.medium};
   text-align: center;
-  margin-top: 60px;
 `;
 
 const InfoContainer = styled.div`
@@ -101,13 +102,13 @@ const InfoContainer = styled.div`
 `;
 
 const ImageCard = styled(motion.div)`
+  height: 200px;
+  min-width: 200px;
+  margin: 15px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin: 10px;
-  min-width: 200px;
-  height: 200px;
   overflow: hidden;
   border-radius: 15px;
   -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
@@ -116,8 +117,8 @@ const ImageCard = styled(motion.div)`
 `;
 
 const SingleImg = styled.img`
-  max-width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
   object-position: center;
   pointer-events: none;
