@@ -7,7 +7,7 @@ The app offers two main routes: the home page and the search page.
 
 ## Table of contents
 * [Description](#description)
-* [Technologies Used](#technologiesUsed)
+* [Technologies](#technologies)
 * [Installation](#installation)
 
 ## Description
@@ -17,7 +17,7 @@ The "Home" route displays a list of dog breeds. Upon clicking on a specific bree
 ### Search
 The "Search" route allows users to search for a specific dog breed. Users can enter the breed name in the provided input field. The application will fetch images of the breed and display them along with the breed's description.
 
-## Technologies Used
+## Technologies 
 
 * React - 18.2.0
 * Vite - ^4.4.0
