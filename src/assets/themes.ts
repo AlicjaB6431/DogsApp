@@ -8,6 +8,7 @@ export const color = {
 };
 
 export const textSize = {
+  xSmall:'18px',
   small: '20px',
   medium: '25px',
   header: '40px',
