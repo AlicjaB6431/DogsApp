@@ -8,8 +8,7 @@ The app offers two main routes: the home page and the search page.
 ## Table of contents
 * [Description](#description)
 * [Technologies Used](#technologiesUsed)
-* [Installing](#installing)
-* [Setup](#setup)
+* [Installation](#installation)
 
 ## Description
 ### Home
@@ -33,6 +32,13 @@ The "Search" route allows users to search for a specific dog breed. Users can en
 ## Installation
 1. Clone the repository
 https://github.com/AlicjaB6431/DogsApp.git
-   
-3. Navigate to the project's folder
-4. 
+2. Navigate to the project's folder
+cd DogsApp
+3. Install the dependencies
+npm install
+4. Start the development server:
+npm run dev
+5. Open your browser and visit http://localhost:3000 to search for images and info about breeds
+
+
+
