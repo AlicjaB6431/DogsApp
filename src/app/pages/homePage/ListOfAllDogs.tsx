@@ -20,7 +20,7 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
   const breedsPerPage = 25;
   const lastBreedIndex = currentBreed * breedsPerPage;
   const firstBreedIndex = lastBreedIndex - breedsPerPage;
-  const currentPosts = data && data.slice(firstBreedIndex, lastBreedIndex);
+  const currentBreeds = data && data.slice(firstBreedIndex, lastBreedIndex);
 
   const totalBreeds = data ? data.length : 0;
 
@@ -31,8 +31,8 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
   };
 
   const generateDogsList =
-    currentPosts &&
-    currentPosts.map((breed: string) => {
+    currentBreeds &&
+    currentBreeds.map((breed: string) => {
       const breedNames = breed.split('/');
       const splittedBreed = breedNames.join(' ').toUpperCase();
       return (
@@ -69,36 +69,47 @@ const ErrorText = styled.p`
   transform: translate(-50%, -50%);
 `;
 const PaginationContainer = styled.div`
-  margin-top: auto;
   width: 100%;
+  margin-top: auto;
   display: flex;
   justify-content: center;
 `;
 
 const MainContainer = styled.div`
-  height: 90%;
   width: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
 `;
 
 const ContentContainer = styled.div`
-  flex-grow: 1;
+  width: 100%;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 1000px;
 `;
 
 const DisplayList = styled.ul`
   font-size: ${(props) => props.theme.textSize.small};
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  @media (min-width: 800px) {
+    font-size: ${(props) => props.theme.textSize.medium};
+  }
 `;
 
 const SingleListItem = styled.li`

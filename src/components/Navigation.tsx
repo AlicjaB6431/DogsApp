@@ -4,7 +4,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface SingleLinkProps {
-  active: string; 
+  active: string;
 }
 
 export default function Navigation() {
@@ -38,7 +38,6 @@ const MainWrapper = styled.nav`
   top: auto;
   bottom: 0;
   background-color: ${(props) => props.theme.color.navyBlue};
-
 `;
 
 const NavigationContainer = styled.ul`
@@ -46,7 +45,6 @@ const NavigationContainer = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
 `;
 
 const SingleItem = styled.li`

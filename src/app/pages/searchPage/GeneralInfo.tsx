@@ -32,9 +32,9 @@ const InfoText = styled.p`
   font-size: ${(props) => props.theme.textSize.small};
 `;
 const ImageCard = styled.div`
-  display: flex;
   width: 200px;
   height: 200px;
+  display: flex;
   overflow: hidden;
   justify-content: center;
   align-items: center;
