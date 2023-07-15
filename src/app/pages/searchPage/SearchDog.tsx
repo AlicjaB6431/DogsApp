@@ -61,22 +61,18 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
           </DisplayList>
         </>
       ) : (
-        data && (
-          <GeneralInfo
-            text={'Nie znamy takej rasy, spróbuj wyszukać inną'}
-            altInfo={'Corgi na niebieskim tle'}
-            image={breedNotFound}
-          />
-        )
-      )
-    ) : (
-      data && (
         <GeneralInfo
-          text={'Wyszukaj rasę psa jaka Cię interesuje'}
-          image={searchDogImg}
-          altInfo={'Rysunek rudego psa'}
+          text={'Nie znamy takej rasy, spróbuj wyszukać inną'}
+          altInfo={'Corgi na niebieskim tle'}
+          image={breedNotFound}
         />
       )
+    ) : (
+      <GeneralInfo
+        text={'Wyszukaj rasę psa jaka Cię interesuje'}
+        image={searchDogImg}
+        altInfo={'Rysunek rudego psa'}
+      />
     );
 
   return (
@@ -110,26 +106,30 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
 }
 const MainWrapper = styled.div`
   height: 90%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 const SearchWrapper = styled.div`
+  width: 90%;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-  width: 90%;
 `;
 const DisplayInfo = styled.div`
-  top: 200px;
   height: 100%;
   width: 100%;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const InfoText = styled.p`
