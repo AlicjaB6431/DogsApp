@@ -21,6 +21,7 @@ The "Search" route allows users to search for a specific dog breed. Users can en
 
 * React - 18.2.0
 * Vite - ^4.4.0
+* Node - v18.16.0
 * MaterialUI - 5.14.0
 * Axios - 1.4.0
 * Framer Motion - 10.12.21
