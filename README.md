@@ -4,6 +4,7 @@ to fetch data about various dog breeds along with their corresponding images.
 The app offers two main routes: the home page and the search page.
 
 ## Live Preview
+https://64b3fc6fee9bac404d700521--tourmaline-faloodeh-178731.netlify.app/
 
 ## Table of contents
 * [Description](#description)
