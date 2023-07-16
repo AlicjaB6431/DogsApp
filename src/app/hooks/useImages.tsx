@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
+/**
+ * Fetching dog images, cache set to 0 minutes
+ * @returns Info About A Dog
+ */
+
 export const useImages = (breed: string, subbreed?: string) => {
   return useQuery({
     queryKey: ['pictures'],
@@ -13,5 +18,6 @@ export const useImages = (breed: string, subbreed?: string) => {
       const { data } = await axios.get(url);
       return data.message;
     },
+    cacheTime: 0,
   });
 };

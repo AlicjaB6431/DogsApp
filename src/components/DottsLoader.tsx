@@ -7,9 +7,9 @@ interface SingleDotProps {
 export default function DottsLoader() {
   return (
     <LoaderWrapper>
-      <SingleDot delay={0.0}></SingleDot>
-      <SingleDot delay={0.2}></SingleDot>
-      <SingleDot delay={0.4}></SingleDot>
+      <SingleDot delay={0.0} />
+      <SingleDot delay={0.2} />
+      <SingleDot delay={0.4} />
     </LoaderWrapper>
   );
 }

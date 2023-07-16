@@ -3,8 +3,13 @@ interface DataProps {
     [breed: string]: string[];
   };
 }
+/**
+ * Extracts all dog breeds from the given data object.
+ * If sub-breeds are present, they are included in the format `breed/sub-breed`.
+ * @returns An array of all dog breeds
+ */
 
-export const setAllBreeds: React.FC<DataProps> = (data) => {
+export const setAllBreeds = (data: DataProps) => {
   if (data.message) {
     const newBreeds: string[] = [];
     for (const breed in data.message) {
