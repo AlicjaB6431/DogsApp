@@ -70,6 +70,7 @@ const ErrorText = styled.p`
   text-align: center;
   transform: translate(-50%, -50%);
 `;
+
 const CarouselWrapper = styled.div`
   max-width: 1124px;
   height: 250px;
@@ -78,6 +79,7 @@ const CarouselWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Carousel = styled(motion.div)`
   height: 100%;
   width: 90%;
@@ -85,6 +87,7 @@ const Carousel = styled(motion.div)`
   cursor: grab;
   overflow-x: hidden;
 `;
+
 const InnerCarousel = styled(motion.div)`
   display: flex;
 `;

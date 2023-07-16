@@ -70,12 +70,6 @@ const ErrorText = styled.p`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-const PaginationContainer = styled.div`
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  justify-content: center;
-`;
 
 const MainContainer = styled.div`
   width: 100%;
@@ -109,7 +103,7 @@ const DisplayList = styled.ul`
   font-size: ${(props) => props.theme.textSize.small};
   display: flex;
   flex-direction: column;
-  @media (min-width: 800px) {
+  @media (${(props) => props.theme.device.tablet}) {
     font-size: ${(props) => props.theme.textSize.medium};
   }
 `;
@@ -122,4 +116,11 @@ const SingleListItem = styled.li`
   &:hover {
     color: ${(props) => props.theme.color.blue};
   }
+`;
+
+const PaginationContainer = styled.div`
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
 `;

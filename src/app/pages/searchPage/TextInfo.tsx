@@ -9,7 +9,6 @@ export default function TextInfo() {
         w prowadzeniu, choć bywa uparty. Sprawdzi się zarówno w małym mieszkaniu jak i w domu z
         ogrodem.
       </InfoText>
-
       <InfoText>
         Wysokość w kłębie 30–35 cm, masa ciała 22–25 kg. Sierść krótka, delikatna, lśniąca,
         umaszczenie płowe, pręgowane lub łaciate. Charakter czujny, śmiały, oddany, odważny,

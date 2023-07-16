@@ -27,6 +27,7 @@ const SkeletonContainer = styled.div`
 const SkeletonItem = styled(Skeleton)`
   border-radius: 15px;
 `;
+
 const ImageCard = styled.div`
   height: 200px;
   min-width: 200px;
