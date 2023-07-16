@@ -21,7 +21,7 @@ The "Search" route allows users to search for a specific dog breed. Users can en
 
 * React - 18.2.0
 * Vite - ^4.4.0
-* Node - v18.16.0
+* Node - v18.12.1
 * MaterialUI - 5.14.0
 * Axios - 1.4.0
 * Framer Motion - 10.12.21
@@ -39,7 +39,7 @@ cd DogsApp
 npm install
 4. Start the development server:
 npm run dev
-5. Open your browser and visit http://localhost:3000 to search for images and info about breeds
+5. Open your browser and visit http://localhost:5173 
 
 
 
