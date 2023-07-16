@@ -3,9 +3,9 @@ import { useRef, useEffect, useState } from 'react';
 import { useImages } from '../../hooks/useImages';
 import TextInfo from './TextInfo';
 import errImg from '../../images/corgi.png';
+import ImageIsLoading from '../../../components/ImageIsLoading';
 
 import styled from 'styled-components';
-import { Skeleton } from '@mui/material';
 import { motion } from 'framer-motion';
 
 interface InfoAboutDogProps {
@@ -31,27 +31,24 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
 
   return (
     <MainWrapper>
-      {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
       <InfoContainer>
         <CarouselWrapper>
+          {isLoading && <ImageIsLoading />}
+          {isError && <ErrorText>Problem z pobraniem zdjęć</ErrorText>}
           <Carousel ref={carousel} whileTap={{ cursor: 'grabbing' }}>
             <InnerCarousel drag='x' dragConstraints={{ right: 0, left: -width }}>
               {data &&
                 data.map((image: string) => {
                   return (
                     <ImageCard key={image}>
-                      {isLoading ? (
-                        <Skeleton variant='rectangular' width={200} height={200} />
-                      ) : (
-                        <SingleImg
-                          onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                            const target = e.target as HTMLImageElement;
-                            target.src = errImg;
-                          }}
-                          alt={splittedBreed}
-                          src={image}
-                        />
-                      )}
+                      <SingleImg
+                        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = errImg;
+                        }}
+                        alt={splittedBreed}
+                        src={image}
+                      />
                     </ImageCard>
                   );
                 })}
@@ -64,6 +61,15 @@ export default function InfoAboutDog({ filteredData }: InfoAboutDogProps) {
     </MainWrapper>
   );
 }
+
+const ErrorText = styled.p`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+`;
 const CarouselWrapper = styled.div`
   max-width: 1124px;
   height: 250px;
@@ -74,7 +80,7 @@ const CarouselWrapper = styled.div`
 `;
 const Carousel = styled(motion.div)`
   height: 100%;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   cursor: grab;
   overflow-x: hidden;
@@ -119,16 +125,9 @@ const ImageCard = styled(motion.div)`
 `;
 
 const SingleImg = styled.img`
-  height: 100%;
+  max-height: 100%;
   max-width: 100%;
   object-fit: cover;
   object-position: center;
   pointer-events: none;
-`;
-
-const ErrorText = styled.p`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;

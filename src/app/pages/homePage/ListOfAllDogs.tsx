@@ -49,14 +49,16 @@ export default function ListOfAllDogs({ data, isLoading, isError }: DataProps) {
         {isLoading && <DottsLoader />}
         {isError && <ErrorText>Problem z pobraniem danych</ErrorText>}
         {data && data.length > 0 && <DisplayList>{generateDogsList}</DisplayList>}
-        <PaginationContainer>
-          <PaginationComponent
-            totalBreeds={totalBreeds}
-            breedsPerPage={breedsPerPage}
-            setCurrentBreed={setCurrentBreed}
-            containerRef={containerRef}
-          />
-        </PaginationContainer>
+        {data && (
+          <PaginationContainer>
+            <PaginationComponent
+              totalBreeds={totalBreeds}
+              breedsPerPage={breedsPerPage}
+              setCurrentBreed={setCurrentBreed}
+              containerRef={containerRef}
+            />
+          </PaginationContainer>
+        )}
       </ContentContainer>
     </MainContainer>
   );
