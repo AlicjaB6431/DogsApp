@@ -13,6 +13,9 @@ export default function ImageIsLoading() {
       <ImageCard>
         <SkeletonItem width={200} height={200} variant='rectangular' />
       </ImageCard>
+      <ImageCard>
+        <SkeletonItem width={200} height={200} variant='rectangular' />
+      </ImageCard>
     </SkeletonContainer>
   );
 }
@@ -34,7 +37,7 @@ const ImageCard = styled.div`
   align-items: center;
   overflow: hidden;
   border-radius: 15px;
-  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -webkit-box-shadow: 8px 8px 18px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 18px 0px rgba(66, 68, 90, 1);
   box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 `;
