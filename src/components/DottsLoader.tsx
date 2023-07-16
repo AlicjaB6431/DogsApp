@@ -31,6 +31,7 @@ const SingleDot = styled.div<SingleDotProps>`
   animation: ${BouncingLoader} 0.6s infinite alternate;
   animation-delay: ${({ delay }) => (delay === 1 ? 0 : delay + 's')};
 `;
+
 const LoaderWrapper = styled.div`
   display: flex;
   justify-content: center;

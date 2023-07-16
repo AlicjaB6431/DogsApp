@@ -103,6 +103,7 @@ export default function SearchDog({ data, isLoading, isError }: SearchDogProps) 
     </MainWrapper>
   );
 }
+
 const MainWrapper = styled.div`
   height: 90%;
   width: 100%;
@@ -133,6 +134,7 @@ const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const DisplayInfo = styled.div`
   height: 100%;
   width: 100%;
@@ -152,10 +154,11 @@ const DisplayList = styled.ul`
   font-size: ${(props) => props.theme.textSize.small};
   display: flex;
   flex-direction: column;
-  @media (min-width: 800px) {
+  @media (${(props) => props.theme.device.tablet}) {
     font-size: ${(props) => props.theme.textSize.medium};
   }
 `;
+
 const SingleListItem = styled.li`
   padding: 10px;
   margin-bottom: 10px;

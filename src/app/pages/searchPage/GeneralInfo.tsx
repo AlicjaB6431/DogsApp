@@ -31,6 +31,7 @@ const InfoText = styled.p`
   text-align: center;
   font-size: ${(props) => props.theme.textSize.small};
 `;
+
 const ImageCard = styled.div`
   width: 200px;
   height: 200px;
@@ -40,6 +41,7 @@ const ImageCard = styled.div`
   align-items: center;
   border-radius: 10px;
 `;
+
 const SingleImg = styled.img`
   max-width: 100%;
   max-height: 100%;

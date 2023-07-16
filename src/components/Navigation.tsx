@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
+import styled from 'styled-components';
 
 interface SingleLinkProps {
   active: string;
